@@ -9,29 +9,33 @@ on:
   pull_request:
     types:
       - opened
+# env:
+#   BUN_VERSION: 1.2.18
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Print env
-        run: echo "Bun Version:${{vars.BUN_VERSION}}"
-      - name: Print API KEYS
-        run: echo "API Keys:${{vars.API_KEYS}}"
+      - name: Print Bun version
+        run: echo "Bun version:${{ vars.BUN_VERSION }}"
+      - name: Print API Key
+        run: echo "API Key:${{ secrets.API_KEY }}"
+
       - name: Clone repo
         uses: actions/checkout@v5
       - name: Setup Bun
         uses: oven-sh/setup-bun@v2
         with:
-          bun-version: 1.2.18
-      - name: Caching
+          bun-version: ${{ vars.BUN_VERSION }}
+      # Bun
       - uses: actions/cache@v4
         with:
-        path: |
-          ~/.bun/install/cache
-        key: ${{ runner.os }}-bun-${{ hashFiles('**/bun.lockb') }}
-        with:
+          path: |
+            ~/.bun/install/cache
+          key: ${{ runner.os }}-bun-${{ hashFiles('**/bun.lock') }}
+
       - name: Install deps
         run: bun i
+
       - name: Build
         run: bun run build
       - name: List dist/
