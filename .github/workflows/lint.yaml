@@ -1,19 +1,25 @@
-# name: ESLint
-# on:
-#   pull_request:
-#     types:
-#       - opened
-# jobs:
-#   lint:
-#     runs-on: ubuntu-latest
-#     steps:
-#       - name: Get Code
-#         uses: actions/checkout@v4
-#       - name: Install Bun
-#         uses: oven-sh/setup-bun@v2
-#         with:
-#           bun-version: 1.2.8
-#       - name: Install Dependencies
-#         run: bun i
-#       - name: Run ESLint
-#         run: bun run lint
+name: Lint
+on:
+  push:
+    branches:
+      - main
+      - features/**
+      - "!features/authen"
+  workflow_dispatch:
+  pull_request:
+    types:
+      - opened
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clone repo
+        uses: actions/checkout@v5
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: 1.2.18
+      - name: Install deps
+        run: bun i
+      - name: Lint
+        run: bun run lint
