@@ -1,0 +1,37 @@
+name: Deploy React Demo for Github Action
+on:
+  push:
+    workflow_dispatch:
+  jobs:
+    lint:
+    # bun run lint
+    runs-on: ubuntu-latest
+    steps:
+    - name: Clone Repo
+      uses: actions/checkout@v5
+    - name: Setup bun
+      uses: oven-sh/setup-bun@v2
+      with: 
+      bun-version: latest
+    - name: install deps
+      run: bun i
+      name: lint 
+      run: bun run lint
+    deploy:
+    runs-on: ubuntu-latest
+    steps: 
+      - name: Clone Repo
+        uses: actions/checkout@v5
+      - name: Setup bun
+        uses: oven-sh/setup-bun@v2
+        with: 
+        bun-version: latest
+      - name: install deps
+        run: bun i
+        name: lint 
+        run: bun run lint
+      - name: List dist
+        run: ls -l dist
+      - name: Deploy to GitHub 
+        run: echo "Deploying..."
+  
