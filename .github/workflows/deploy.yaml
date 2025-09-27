@@ -1,5 +1,8 @@
 name: Deploy Project
-on: push
+on:
+  push:
+  workflow_dispatch:
+  pull_request:
 jobs:
   lint:
     runs-on: ubuntu-latest
@@ -15,8 +18,8 @@ jobs:
       - name: Run ESLint
         run: bun run lint
   deploy:
-    needs: 
-    - lint
+    needs:
+      - lint
     runs-on: ubuntu-latest
     steps:
       - name: Get Code
