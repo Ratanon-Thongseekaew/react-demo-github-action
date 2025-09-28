@@ -1,21 +1,23 @@
-name: Install deps and caching 
-description: Install dependencies and cache them
+name: Install deps and caching
+description: Install deps and caching
+inputs:
+  bun-version:
+    description: bun version
+    required: false
+    default: 1.2.18
 runs:
   using: composite
   steps:
-      # - name: Clone repo
-      #   uses: actions/checkout@v5
-      # - name: Setup Bun
-      #   uses: oven-sh/setup-bun@v2
-      #   with:
-      #     bun-version: ${{ vars.BUN_VERSION }}
-      # Bun
-      - uses: actions/cache@v4
-        with:
-          path: |
-            ~/.bun/install/cache
-          key: ${{ runner.os }}-bun-${{ hashFiles('**/bun.lock') }}
+    - name: Setup Bun
+      uses: oven-sh/setup-bun@v2
+      with:
+        bun-version: ${{ inputs.BUN_VERSION }}
+    - uses: actions/cache@v4
+      with:
+        path: |
+          ~/.bun/install/cache
+        key: ${{ runner.os }}-bun-${{ hashFiles('**/bun.lock') }}
 
-      - name: Install deps
-        shell: bash
-        run: bun i
+    - name: Install deps
+      shell: bash
+      run: bun i
