@@ -46,7 +46,7 @@ jobs:
         with:
           name: dist-folder
           path: dist/
-        name: Force failed  
+      - name: Force failed  
         run: exit 1
   deploy:
     if: success()
