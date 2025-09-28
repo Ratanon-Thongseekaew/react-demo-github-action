@@ -74,8 +74,6 @@ jobs:
         uses: Ilshidur/action-discord@master
         with:
           args: 'Build success :)'
-
-
           
 notify-failed:
     runs-on: ubuntu-latest
