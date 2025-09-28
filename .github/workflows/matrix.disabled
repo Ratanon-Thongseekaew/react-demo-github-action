@@ -9,8 +9,11 @@ jobs:
         bun_version: ["1.2.0","1.2.18","1.2.16"]
         browser: ["firefox","chrome","safari"]
         exclude:
-          - bun version: "1.2.18"
+          - bun_version: "1.2.18"
             browser: "safari"
+        include:
+          - bun_version: "1.2.18"
+          
     steps:
       - name: Print Bun Version and test browser
         run: echo "${{matrix.bun_version}} - ${{maxtrix.browser}}"
